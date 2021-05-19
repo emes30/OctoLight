@@ -141,7 +141,7 @@ class OctoLightHAPlugin(
             data (str, optional): command arguments. Defaults to None.
 
         Returns:
-            bool: request send result
+            bool: request response object
         """
         url = self._settings.get(['address']) + '/api' + cmd
 
@@ -186,6 +186,7 @@ class OctoLightHAPlugin(
             _entity_id = _domain + '.' + _entity_id
         else:
             _domain = _entity_id[:_domainsplit]
+        _domain = "homeassistant"
         return _domain, _entity_id
 
     def change_light_state(self, state):
