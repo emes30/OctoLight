@@ -17,7 +17,7 @@ if GPIO_OK:
     GPIO.setmode(GPIO.BOARD)
     GPIO.setwarnings(False)
 
-class OctoLightPlugin(
+class OctoLightHAPlugin(
         octoprint.plugin.AssetPlugin,
         octoprint.plugin.StartupPlugin,
         octoprint.plugin.TemplatePlugin,
@@ -49,9 +49,9 @@ class OctoLightPlugin(
         # Define your plugin's asset files to automatically include in the
         # core UI here.
         return dict(
-            js=["js/octolight.js"],
-            css=["css/octolight.css"],
-            #less=["less/octolight.less"]
+            js=["js/octolightha.js"],
+            css=["css/octolightha.css"],
+            #less=["less/octolightha.less"]
         )
 
     def register_custom_events(self):
@@ -60,7 +60,7 @@ class OctoLightPlugin(
     def on_after_startup(self):
         self._light_state = False
         self._logger.info("--------------------------------------------")
-        self._logger.info("OctoLight started, listening for GET request")
+        self._logger.info("OctoLight HA started, listening for GET request")
         self._logger.info("Light pin: {}, inverted_input: {}".format(
             self._settings.get(["light_pin"]),
             self._settings.get(["inverted_output"])
@@ -120,15 +120,15 @@ class OctoLightPlugin(
     def get_update_information(self):
         return dict(
             octolight=dict(
-                displayName="OctoLight",
+                displayName="OctoLight HomeAssistant",
                 displayVersion=self._plugin_version,
 
                 type="github_release",
                 current=self._plugin_version,
 
-                user="gigibu5",
-                repo="OctoLight",
-                pip="https://github.com/gigibu5/OctoLight/archive/{target}.zip"
+                user="emes30",
+                repo="OctoLightHA",
+                pip="https://github.com/emes30/OctoLightHA/archive/{target}.zip"
             )
         )
 
@@ -260,7 +260,7 @@ class OctoLightPlugin(
 
 
 __plugin_pythoncompat__ = ">=2.7,<4"
-__plugin_implementation__ = OctoLightPlugin()
+__plugin_implementation__ = OctoLightHAPlugin()
 
 __plugin_hooks__ = {
     "octoprint.plugin.softwareupdate.check_config": __plugin_implementation__.get_update_information,
