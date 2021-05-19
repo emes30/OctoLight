@@ -119,7 +119,7 @@ class OctoLightHAPlugin(
 
     def get_update_information(self):
         return dict(
-            octolight=dict(
+            octolightha=dict(
                 displayName="OctoLight HomeAssistant",
                 displayVersion=self._plugin_version,
 
@@ -178,6 +178,8 @@ class OctoLightHAPlugin(
 
     def _entity_id(self):
         _entity_id = self._settings.get(['entity_id'])
+        if _entity_id is None:
+            return "", ""
         _domainsplit = _entity_id.find('.')
         if _domainsplit < 0:
             _domain = 'light'
@@ -251,7 +253,7 @@ class OctoLightHAPlugin(
             if (old_state != self._light_state):
                 self._logger.debug("Light state changed, firing psu_state_changed event.")
 
-                event = Events.PLUGIN_OCTOLIGHT_LIGHT_STATE_CHANGED
+                event = Events.PLUGIN_OCTOLIGHTHA_LIGHT_STATE_CHANGED
                 self._event_bus.fire(event, payload=dict(isLightOn=self._light_state))
                 self._plugin_manager.send_plugin_message(self._identifier, dict(isLightOn=self._light_state))
 

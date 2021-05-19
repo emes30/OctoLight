@@ -13,7 +13,7 @@ $(function() {
         };
 
     	self.onDataUpdaterPluginMessage = function(plugin, data) {
-            if (plugin != "octolight") {
+            if (plugin != "octolightha") {
                 return;
             }
 
