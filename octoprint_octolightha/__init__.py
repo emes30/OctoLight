@@ -61,6 +61,7 @@ class OctoLightHAPlugin(
         self._light_state = False
         self._logger.info("--------------------------------------------")
         self._logger.info("OctoLight HA started, listening for GET request")
+        self._logger.info("Control method: {}".format(self._settings.get(["light_device"])))
         self._logger.info("Light pin: {}, inverted_input: {}".format(
             self._settings.get(["light_pin"]),
             self._settings.get(["inverted_output"])
@@ -262,7 +263,7 @@ class OctoLightHAPlugin(
             self._check_light_state_event.clear()
 
 
-__plugin_pythoncompat__ = ">=2.7,<4"
+__plugin_pythoncompat__ = ">=3,<4"
 __plugin_implementation__ = OctoLightHAPlugin()
 
 __plugin_hooks__ = {
