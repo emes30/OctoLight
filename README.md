@@ -1,7 +1,6 @@
-# OctoLight HomeAssistant
+# OctoLight
 A simple plugin that adds a button to the navigation bar for light toggleing.
 It can use Raspberry Pi GPIO pin or HomeAssistant to control ligths.
-This is fork of [OctoLight](https://github.com/gigibu5/OctoLight) plugin by Žiga Kralj.
 Home Assistant part is based on [PSU Control HomeAssistant](https://github.com/edekeijzer/OctoPrint-PSUControl-HomeAssistant) subplugin.
 
 Interface is automatically updated when light state is changed from outside OctoPrint.
@@ -12,7 +11,7 @@ Interface is automatically updated when light state is changed from outside Octo
 Install via the bundled [Plugin Manager](https://docs.octoprint.org/en/master/bundledplugins/pluginmanager.html)
 or manually using this URL:
 
-	https://github.com/emes30/OctoLightHA/archive/master.zip
+	https://github.com/gigibu5/OctoLight/archive/master.zip
 
 ## Configuration
 ![Settings panel](img/settings.png)
@@ -25,11 +24,26 @@ For GPIO method, you can configure two settings:
 - `Light PIN`: The pin on the Raspberry Pi that the button controls.
 	- Default value: 13
 	- The pin number is saved in the **board layout naming** scheme (gray labels on the pinout image below).
-	- **!! IMPORTANT !!** The Raspberry Pi can only controll the **GPIO** pins (orange labels on the pinout image below)
+	- **!! IMPORTANT !!** The Raspberry Pi can only control the **GPIO** pins (orange labels on the pinout image below)
 	![Raspberry Pi GPIO](img/rpi_gpio.png)
 
 - `Inverted output`: If true, the output will be inverted
 	- Usage: if you have a light, that is turned off when voltage is applied to the pin (wired in negative logic), you should turn on this option, so the light isn't on when you reboot your Raspberry Pi.
+
+## API
+Base API URL : `GET http://YOUR_OCTOPRINT_SERVER/api/plugin/octolight?action=ACTION_NAME`
+
+This API always returns updated light state in JSON: `{state: true}`
+
+_(if the action parameter not given, the action toggle will be used by default)_
+#### Actions
+- **toggle** (default action): Toggle light switch on/off.
+- **turnOn**: Turn on light.
+- **turnOff**: Turn off light.
+- **getState**: Get current light switch state.
+
+## TO DO
+- [x] Update interface if Light is turned on or off in GPIO method
 
 For HomeAssistant method, you have to configure following settings:
 - `Address`: Url of your HomeAssistance instance
